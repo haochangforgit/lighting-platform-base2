@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.lighting.platform.base.ContextHolder;
-import com.lighting.platform.base.entity.IUserDetails;
+import com.lighting.service.entity.IUserDetails;
 
 
 
