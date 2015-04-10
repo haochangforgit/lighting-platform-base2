@@ -95,7 +95,7 @@ public class SimpleHibernateDao<T, ID extends Serializable> {
 	 * 取得当前Session.
 	 */
 	public Session getSession() {
-		return sessionFactory.getCurrentSession();
+		return sessionFactory.openSession();
 	}
 
 	/**
