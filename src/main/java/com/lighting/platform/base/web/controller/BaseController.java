@@ -25,7 +25,7 @@ import com.lighting.platform.base.dao.PageConfig;
  * @author changhao
  *
  */
-public class BaseController
+public abstract class BaseController
 {
 	
 	private Log _logger = LogFactory.getLog(this.getClass());
