@@ -1,4 +1,4 @@
-package com.lighting.platform.base.entity;
+package com.lighting.platform.base.entity.in;
 
 
 public interface IUserDetails {

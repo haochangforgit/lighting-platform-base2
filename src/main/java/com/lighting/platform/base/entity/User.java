@@ -2,12 +2,19 @@ package com.lighting.platform.base.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -74,6 +81,19 @@ public class User extends CreateAndModify implements Serializable
 	//@Column(name = "end_time", columnDefinition = "'停止使用时间'")
 	private Date endTime;//
 	
+	private Set<Role> roles = new LinkedHashSet<Role>();
+	
+
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "sys_userRole", joinColumns = { @JoinColumn (name ="id" )}, inverseJoinColumns = { @JoinColumn(name = "id") })
+    @OrderBy("id")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	public String getId() {
 		return id;
