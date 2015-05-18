@@ -3,24 +3,25 @@ package com.lighting.platform.base.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 /**
  * 用户实体bean
- * @author xieyulin
  * @author changhao
  *
  */
 @Entity
-@Table(name = "c_user")
+@Table(name = "sys_user")
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "com.lighting.platform.base.entity.User")
-public class User implements Serializable
+public class User extends CreateAndModify implements Serializable
 {
 	/**
 	 * 
@@ -31,45 +32,48 @@ public class User implements Serializable
 	/**
 	 * 账号使用状态
 	 */
-	public static enum UseStatus {
+	public static enum UseStatu
+	{
 		/**
 		 *  启用
 		 */
-		USE,
+		ENABLE,
 		/**
 		 *  停用
 		 */
-		STOP
-
+		DISABLE
 	}
 	
-	@Id
+	
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_user_id_seq")
 	//@SequenceGenerator(name = "c_user_id_seq", sequenceName = "c_user_id_seq", allocationSize = 1)
+	@Id
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String id;
 	
-	@Column(name = "name")
-	private String name;
+	//@Column(name = "login_name", columnDefinition = "'登录名'")
+	private String loginName;
 	
-	@Column(name = "password", nullable = false)
-	private String password;//密码
+	//@Column(name = "password", nullable = false, columnDefinition = "'密码'")
+	private String password;
+	
+	//@Column(name = "real_name", columnDefinition = "'真实姓名'")
+	private String realName;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "use_status", nullable = false)
-	private UseStatus useStatus = UseStatus.USE;//使用状态
+	//@Column(name = "use_statu", nullable = false , columnDefinition = "'使用状态'")
+	private UseStatu useStatu = UseStatu.ENABLE;
 	
-	@Column(name = "email")
-	private String email;//密码找回邮箱
+	//@Column(name = "email", columnDefinition = "密码找回邮箱")
+	private String email;
 	
-	@Column(name = "end_condition")
-	private String endCondition;
+	//@Column(name = "end_reason", columnDefinition = "'停止原因'")
+	private String endReason;
 	
-	@Column(name = "end_time")
-	private Date endTime;//停止使用时间
+	//@Column(name = "end_time", columnDefinition = "'停止使用时间'")
+	private Date endTime;//
 	
-	@Column(name = "location", nullable = false, updatable = false)
-	private String location;
-
 
 	public String getId() {
 		return id;
@@ -79,12 +83,12 @@ public class User implements Serializable
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getLoginName() {
+		return loginName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
 	public String getPassword() {
@@ -95,12 +99,20 @@ public class User implements Serializable
 		this.password = password;
 	}
 
-	public UseStatus getUseStatus() {
-		return useStatus;
+	public String getRealName() {
+		return realName;
 	}
 
-	public void setUseStatus(UseStatus useStatus) {
-		this.useStatus = useStatus;
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+	
+	public UseStatu getUseStatu() {
+		return useStatu;
+	}
+
+	public void setUseStatu(UseStatu useStatu) {
+		this.useStatu = useStatu;
 	}
 
 	public String getEmail() {
@@ -110,13 +122,13 @@ public class User implements Serializable
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getEndCondition() {
-		return endCondition;
+	
+	public String getEndReason() {
+		return endReason;
 	}
 
-	public void setEndCondition(String endCondition) {
-		this.endCondition = endCondition;
+	public void setEndReason(String endReason) {
+		this.endReason = endReason;
 	}
 
 	public Date getEndTime() {
@@ -127,13 +139,6 @@ public class User implements Serializable
 		this.endTime = endTime;
 	}
 
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
 
 	@Override
 	public int hashCode() {

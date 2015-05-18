@@ -65,7 +65,8 @@ public abstract class BaseController
 		_logger.error(error);
 	}
 	
-	protected void setCreater(CreateAndModify entity){
+	protected void setCreater(CreateAndModify entity)
+	{
 		entity.setUserId(OnLine.getCurrentUserDetails().getUserId());
 	}
 	
