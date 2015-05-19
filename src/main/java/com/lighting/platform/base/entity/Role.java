@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -44,11 +46,32 @@ public class Role extends CreateAndModify implements Serializable
      */
     private String roleName;
     
-    
+    /***
+     * 多对多关联 用户方
+     */
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users = new LinkedHashSet<User>();
     
     
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "roles", fetch = FetchType.LAZY)
+    /***
+     * 多对多关联 权限方
+     */
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(
+			name = "sys_role_auth", 
+			joinColumns = { @JoinColumn(name = "role_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "auth_id") }
+			)
+    private Set<Auth> auths = new LinkedHashSet<Auth>(); 
+    
+	public Set<Auth> getAuths() {
+		return auths;
+	}
+
+	public void setAuths(Set<Auth> auths) {
+		this.auths = auths;
+	}
+
 	public Set<User> getUsers() {
 		return users;
 	}

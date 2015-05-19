@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,12 +30,6 @@ import org.hibernate.annotations.GenericGenerator;
 public class User extends CreateAndModify implements Serializable
 {
 	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-
-	/**
 	 * 账号使用状态
 	 */
 	public static enum UseStatu
@@ -51,42 +44,56 @@ public class User extends CreateAndModify implements Serializable
 		DISABLE
 	}
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "c_user_id_seq")
-	//@SequenceGenerator(name = "c_user_id_seq", sequenceName = "c_user_id_seq", allocationSize = 1)
+
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String id;
 	
-	//@Column(name = "login_name", columnDefinition = "'登录名'")
+	//登录名
 	private String loginName;
 	
-	//@Column(name = "password", nullable = false, columnDefinition = "'密码'")
+	
+	//密码
 	private String password;
 	
-	//@Column(name = "real_name", columnDefinition = "'真实姓名'")
+	
+	//真实姓名
 	private String realName;
 	
+	
+	//使用状态
 	@Enumerated(EnumType.STRING)
-	//@Column(name = "use_statu", nullable = false , columnDefinition = "'使用状态'")
 	private UseStatu useStatu = UseStatu.ENABLE;
 	
-	//@Column(name = "email", columnDefinition = "密码找回邮箱")
+	
+	//密码找回邮箱
 	private String email;
 	
-	//@Column(name = "end_reason", columnDefinition = "'停止原因'")
+	
+	//停止原因
 	private String endReason;
 	
-	//@Column(name = "end_time", columnDefinition = "'停止使用时间'")
-	private Date endTime;//
 	
+	//停止使用时间
+	private Date endTime;
+	
+	
+	//多对多关联 角色方
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(
+			name = "sys_user_role", 
+			joinColumns = { @JoinColumn(name = "user_id") }, 
+			inverseJoinColumns = { @JoinColumn(name = "role_id") }
+			)
+	//@OrderBy("id")
 	private Set<Role> roles = new LinkedHashSet<Role>();
 	
-
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "sys_userRole", joinColumns = { @JoinColumn (name ="id" )}, inverseJoinColumns = { @JoinColumn(name = "id") })
-    @OrderBy("id")
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -184,4 +191,5 @@ public class User extends CreateAndModify implements Serializable
 			return false;
 		return true;
 	}
+	
 }
