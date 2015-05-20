@@ -32,7 +32,7 @@ public class User extends CreateAndModify implements Serializable
 	/**
 	 * 账号使用状态
 	 */
-	public static enum UseStatu
+	public static enum UserStatu
 	{
 		/**
 		 *  启用
@@ -69,7 +69,7 @@ public class User extends CreateAndModify implements Serializable
 	
 	//使用状态
 	@Enumerated(EnumType.STRING)
-	private UseStatu useStatu = UseStatu.ENABLE;
+	private UserStatu userStatu = UserStatu.ENABLE;
 	
 	
 	//密码找回邮箱
@@ -134,12 +134,12 @@ public class User extends CreateAndModify implements Serializable
 		this.realName = realName;
 	}
 	
-	public UseStatu getUseStatu() {
-		return useStatu;
+	public UserStatu getUserStatu() {
+		return userStatu;
 	}
 
-	public void setUseStatu(UseStatu useStatu) {
-		this.useStatu = useStatu;
+	public void setUserStatu(UserStatu userStatu) {
+		this.userStatu = userStatu;
 	}
 
 	public String getEmail() {
