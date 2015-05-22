@@ -67,12 +67,12 @@ public abstract class BaseController
 	
 	protected void setCreater(CreateAndModify entity)
 	{
-		entity.setUserId(OnLine.getCurrentUserDetails().getUserId());
+		entity.setUserId(OnLine.getCurrentUser().getUserId());
 	}
 	
 	protected void setLastModify(CreateAndModify entity){
 		entity.setLastModifyTime(new Date());
-		entity.setLastModifyUserId(OnLine.getCurrentUserDetails().getUserId());
+		entity.setLastModifyUserId(OnLine.getCurrentUser().getUserId());
 	}
 
 	protected PageConfig createPageConfig(HttpServletRequest request)
