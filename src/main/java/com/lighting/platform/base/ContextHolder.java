@@ -19,36 +19,41 @@ import org.springframework.core.NamedThreadLocal;
  */
 public class ContextHolder {
 
-	private static final ThreadLocal<ContextHolder> threadLocal = new NamedThreadLocal<ContextHolder>(
-			"current TheadBindHolder");
+	private static final ThreadLocal<ContextHolder> threadLocal = new NamedThreadLocal<ContextHolder>("current TheadBindHolder");
 
 	private HttpServletRequest request;
 
 	private HttpServletResponse response;
 	
-	ContextHolder(HttpServletRequest request, HttpServletResponse response) {
+	public ContextHolder(HttpServletRequest request, HttpServletResponse response)
+	{
 		this.request = request;
 		this.response = response;
 	}
 
-	static void setCurrent(ContextHolder tbh) {
+	public static void setCurrent(ContextHolder tbh)
+	{
 		threadLocal.set(tbh);
 	}
 
-	static void removeCurrent() {
+	public static void removeCurrent()
+	{
 		threadLocal.remove();
 	}
 
-	public static ContextHolder getCurrent() {
+	public static ContextHolder getCurrent()
+	{
 		ContextHolder holder = threadLocal.get();
 		return holder;
 	}
 	
-	public HttpServletRequest getRequest() {
+	public HttpServletRequest getRequest()
+	{
 		return request;
 	}
 
-	public HttpServletResponse getResponse() {
+	public HttpServletResponse getResponse()
+	{
 		return response;
 	}
 
