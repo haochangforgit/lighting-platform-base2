@@ -17,8 +17,8 @@ import org.springframework.core.NamedThreadLocal;
  * @author zhaoyk10@gmail.com
  *
  */
-public class ContextHolder {
-
+public class ContextHolder
+{
 	private static final ThreadLocal<ContextHolder> threadLocal = new NamedThreadLocal<ContextHolder>("current TheadBindHolder");
 
 	private HttpServletRequest request;

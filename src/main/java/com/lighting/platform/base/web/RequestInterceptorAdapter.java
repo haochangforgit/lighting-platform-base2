@@ -57,7 +57,8 @@ public class RequestInterceptorAdapter extends HandlerInterceptorAdapter
 		
 		if(currentUser != null)
 		{
-			String uri = this.getRequestURL(request);
+			this.getRequestURL(request);
+			//String uri = this.getRequestURL(request);
 			//Set<String> optCodes = Context.getAuthService().getOptCodes(Context.getSystemId(), userDetails.getUserId(), uri);
 			//ToolsUtil.setTools(optCodes, request);
 		}
