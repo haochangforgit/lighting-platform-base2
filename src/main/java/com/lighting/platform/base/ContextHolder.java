@@ -14,7 +14,7 @@ import org.springframework.core.NamedThreadLocal;
  * <li> 绑定自动结束于视图渲染之后(或异常处理之后)</li>
  * <li> 对于非请求触发的线程(如内部定时器产生的线程), 会抛出 IllegalStateException 异常</li>
  * 
- * @author zhaoyk10@gmail.com
+ * @author changhao
  *
  */
 public class ContextHolder
